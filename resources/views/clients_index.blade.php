@@ -1,4 +1,5 @@
 @extends('layout.main_template')
-
 @section('content')
-<h2>
+<h1> clientes </h1>
+    
+@endsection
