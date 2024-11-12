@@ -10,6 +10,11 @@
 <body style="background-color: rgb(pink, black, rgb(225, 147, 225))">
 
     @include('fragments.navbar')
+    
+    @if (session('status'))
+        {{session('status')}}
+
+    @endif
 
     @yield('content')
    

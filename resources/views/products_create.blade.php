@@ -20,7 +20,7 @@
         @endforeach
     </select>
     
-    <input type="text" name="brand">
+    
 
     <label for=""> Cantidad </label>
     <input type="number" name="stock">
@@ -29,7 +29,7 @@
     <input type="text" name="unit_price">
 
     <label for=""> Imagen </label>
-    <input type="text" name='imagen'>
+    <input type="file" name='imagen'>
 
     <button type="submit"> Registrar </button>
 </form>
