@@ -44,6 +44,8 @@ Route::delete('/destroyProducts/{product}', [App\Http\Controllers\ProductControl
 //Ruta tipo recursos para métodos REST, que permite crear las rutas para un CRUD de las 7 funciones
 //De un controller
 Route::resource('/products', App\Http\Controllers\ProductController::class);
+Route::get('/products/{product}/delete',
+[App\Http\Controllers\ProductController::class, 'delete'])->name('products.delete');
 Route::get('/clients', function(){
     return view ('clients_index');
 }) -> name('clients');
@@ -51,3 +53,5 @@ Route::get('/clients', function(){
 Route::get('/sales', function(){
     return view ('sales_index');
 }) -> name('sales');
+
+Route::resource('/brands', App\Http\Controllers\BrandController::class);

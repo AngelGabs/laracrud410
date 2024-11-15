@@ -28,7 +28,7 @@
         margin-block: 4px;
         display:flex;
     }
-    form button[type="submit"]{
+    form button{
         width: 100%;
         padding: 8px 16px;
         margin-block-start: 32px;
@@ -38,5 +38,17 @@
         color: #fff;
         background-color:#000;
 
+    }
+
+    form a{
+        text-decoration: none;
+    }
+
+    form h3{
+        width: 100%;
+        height: 10px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        display: inline-block;
     }
     </style>

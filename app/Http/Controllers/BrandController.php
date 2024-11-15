@@ -12,7 +12,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $brands = Brand::get();
+        return view ('brands_show', compact('brands'));
     }
 
     /**
@@ -20,7 +21,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view ('brands_create');
     }
 
     /**
@@ -28,7 +29,8 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Brand::create($request->all());
+        return to_route('products.index') -> with ('status', 'Marca Registrado');
     }
 
     /**
@@ -36,7 +38,7 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        //
+        return view('brands_show', compact('brand'));
     }
 
     /**
@@ -44,7 +46,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        echo view ('brands_edit', compact('brand'));
     }
 
     /**
@@ -52,7 +54,8 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $brand->update($request->all()); //ACTUALIZAMOS LOS DATOS EN LA BASE DE DATOS.
+        return to_route('brands.index') -> with ('status', 'Marca Actualizada');
     }
 
     /**
@@ -60,6 +63,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+        return to_route('brands.index') -> with('status', 'Marca Eliminada');
     }
 }

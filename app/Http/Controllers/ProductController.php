@@ -49,6 +49,7 @@ class ProductController extends Controller
     {
         
         return view('products_show', compact('product'));
+       
     }
 
     /**
@@ -56,7 +57,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        echo "Edit productos";
+        $brands = Brand::pluck('id', 'brand');
+        echo view ('products_edit', compact('brands', 'product'));
+        
     }
 
     /**
@@ -64,14 +67,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        echo "update productos";
+        $product->update($request->all()); //ACTUALIZAMOS LOS DATOS EN LA BASE DE DATOS.
+        return to_route('products.index') -> with ('status', 'Producto Actualizado');
     }
 
+    public function delete(Product $product)
+    {
+        echo view ('products_delete', compact('product'));
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
     {
-        echo "Destroy productos";
+        $product->delete();
+        return to_route('products.index') -> with('status', 'Producto Eliminado');
     }
+
 }
