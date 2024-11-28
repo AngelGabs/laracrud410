@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\Brand;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Products\StoreRequest;
+use App\Http\Requests\Products\UpdateRequest;
 
 class ProductController extends Controller
 {
@@ -14,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();
+       // $products = Product::get();
+       $products = Product::paginate(3);
         return view ('admin/products/index', compact('products'));
         
     }
@@ -33,12 +36,20 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
        // echo "Store productos";
         //dd($request);
         //dd($request->all());
-        Product::create($request->all());
+        $data = $request->all();
+        if(isset($data["imagen"])){
+            //Cambiar el nombre del archivo a cargar
+            $data["imagen"] = $filename = time(). ".".$data["imagen"]->extension();
+            //Guardar imagen en la carpeta publica
+            $request->imagen->move(public_path("image/products"), $filename);
+
+        }
+        Product::create($data);
         return to_route('products.index') -> with ('status', 'Producto Registrado');
     }
 
@@ -65,9 +76,22 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateRequest $request, Product $product)
     {
-        $product->update($request->all()); //ACTUALIZAMOS LOS DATOS EN LA BASE DE DATOS.
+        $data = $request->all();
+
+        //Si el campo imagen tiene información
+        if(isset($data["imagen"])){
+            //Cambiar el nombre del archivo a cargar
+            $data["imagen"] = $filename = time(). ".".$data["imagen"]->extension();
+            //Guardar imagen en la carpeta publica
+            $request->imagen->move(public_path("image/products"), $filename);
+
+        }
+        $product->update($data); //ACTUALIZAMOS LOS DATOS EN LA BASE DE DATOS.
+
+
+
         return to_route('products.index') -> with ('status', 'Producto Actualizado');
     }
 
