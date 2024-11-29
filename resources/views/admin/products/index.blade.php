@@ -13,7 +13,7 @@
 
    
 
-    <table>
+    <table class="table table-striped">
         <thead>
             <th>Nombre del producto </th>
             <th>Marca</th>
@@ -33,7 +33,9 @@
             <td>{{$p->unit_price}}</td>
             <td><img src="/image/products/{{$p->imagen}}" width="60" alt="producto"></td>
             <td>
-                <button><a href="{{route("products.show", $p)}}">Mostrar</a></button>
+                <a type="button" class="btn btn-primary" href="{{route("products.show", $p)}}">
+                    <i class="fa-solid fa-plus"></i>
+                </a>
                 <button><a href="{{route("products.edit", $p)}}">Editar</a></button>
                 <button><a href="{{route("products.delete", $p)}}">Eliminar</a></button>
             </td>
